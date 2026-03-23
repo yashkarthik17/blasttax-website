@@ -50,22 +50,45 @@ const Marquee = () => (
   </div>
 );
 
-const Navbar = () => (
-  <nav className="fixed top-[40px] left-0 right-0 z-50 px-6 md:px-12 py-4 flex justify-between items-center backdrop-blur-xl bg-bg/80 border-b border-border-color">
-    <div className="flex items-center gap-2.5">
-      <img src="/blast_(4)_1774253286513.png" alt="BlastTax Debt Logo" className="h-10 w-auto" />
-    </div>
-    <div className="hidden md:flex gap-8 items-center">
-      <a href="#services" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Services</a>
-      <a href="#platform" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Platform</a>
-      <a href="#how" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">How it works</a>
-      <a href="#proof" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Results</a>
-      <a href="#" className="bg-brand-red text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_var(--color-brand-red-glow)] transition-all">
-        Free Analysis →
-      </a>
-    </div>
-  </nav>
-);
+const Navbar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  return (
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-4 flex justify-between items-center backdrop-blur-xl bg-bg/80 border-b border-border-color">
+        <div className="flex items-center gap-2.5">
+          <img src="/blast_(4)_1774253286513.png" alt="BlastTax Debt Logo" className="h-10 w-auto" />
+        </div>
+        <div className="hidden md:flex gap-8 items-center">
+          <a href="#services" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Services</a>
+          <a href="#platform" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Platform</a>
+          <a href="#how" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">How it works</a>
+          <a href="#proof" className="text-text-muted hover:text-text-main text-sm font-medium transition-colors">Results</a>
+          <a href="#" className="bg-brand-red text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_var(--color-brand-red-glow)] transition-all">
+            Free Analysis →
+          </a>
+        </div>
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden flex flex-col gap-1.5 p-2" aria-label="Menu">
+          <span className={`w-6 h-0.5 bg-text-main transition-all ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`w-6 h-0.5 bg-text-main transition-all ${mobileOpen ? 'opacity-0' : ''}`} />
+          <span className={`w-6 h-0.5 bg-text-main transition-all ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+        </button>
+      </nav>
+      {mobileOpen && (
+        <div className="fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl pt-24 px-8 md:hidden">
+          <div className="flex flex-col gap-6">
+            <a href="#services" onClick={() => setMobileOpen(false)} className="text-2xl font-bold text-text-main">Services</a>
+            <a href="#platform" onClick={() => setMobileOpen(false)} className="text-2xl font-bold text-text-main">Platform</a>
+            <a href="#how" onClick={() => setMobileOpen(false)} className="text-2xl font-bold text-text-main">How it works</a>
+            <a href="#proof" onClick={() => setMobileOpen(false)} className="text-2xl font-bold text-text-main">Results</a>
+            <a href="#" className="bg-brand-red text-white px-8 py-4 rounded-full font-semibold text-center text-lg mt-4">
+              Free Analysis →
+            </a>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 const Hero = () => {
   return (
@@ -656,7 +679,6 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-x-hidden selection:bg-brand-red-light">
       <CursorDot />
-      <Marquee />
       <Navbar />
       <main>
         <Hero />
